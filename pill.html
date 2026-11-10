@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>💊 똑똑한 약 챙김이 - 깜빡 방지 복용 알리미</title>
+  <link rel="stylesheet" href="pill.css">
+  <!-- 가독성 좋은 폰트 프리텐다드 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- 카카오톡 SDK (안심 카톡 전송용) -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2mDixZZTmgU0auTxNURxLS3Ys4NeQXXYjQU/4ub59J2" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="header-left">
+      <span class="header-icon">💊</span>
+      <div>
+        <h1 class="header-title">똑똑한 약 챙김이</h1>
+        <p id="todayDateStr" class="header-date">2026년 11월 10일 화요일</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <a href="index.html" class="btn-settings" style="text-decoration: none; color: inherit; background: #fff9db; border-color: #ffe066;" title="우리 동네 지도로 이동">🧭 동네 지도</a>
+      <button id="openPillSettingsBtn" class="btn-settings" title="약 추가/수정">⚙️ 관리</button>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="main-container">
+
+    <!-- 오늘의 복용 현황 요약 카드 -->
+    <section class="summary-card">
+      <div class="summary-info">
+        <span class="summary-label">오늘의 약 챙김</span>
+        <strong id="progressText" class="summary-status">총 4개 중 0개 완료</strong>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progressBarFill" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+    </section>
+
+    <!-- 복용 목록 (시니어 맞춤 왕알약 카드들) -->
+    <section id="pillListContainer" class="pill-list-section">
+      <!-- 자바스크립트로 알약 카드들이 생성됩니다 -->
+    </section>
+
+    <!-- 자녀에게 안심 카톡 보내기 버튼 -->
+    <section class="action-card">
+      <button id="shareKakaoBtn" class="btn-kakao-share">
+        <span class="kakao-icon">💬</span>
+        <span class="btn-text">가족에게 "약 잘 먹었어요" 안심 톡 보내기</span>
+      </button>
+    </section>
+
+  </main>
+
+  <!-- 약 관리/추가 모달 -->
+  <div id="pillModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>⚙️ 약 목록 관리하기</h3>
+        <button id="closePillModalBtn" class="close-x">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="pillEditorList" class="pill-editor-list">
+          <!-- 등록된 약 편집 리스트 -->
+        </div>
+        <button id="addNewPillBtn" class="btn-add-pill">+ 새 알약 추가하기</button>
+      </div>
+
+      <div class="modal-footer">
+        <button id="resetPillsBtn" class="btn-modal-sub">기본값 복원</button>
+        <button id="savePillsBtn" class="btn-modal-main">저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="pill.js"></script>
+</body>
+</html>

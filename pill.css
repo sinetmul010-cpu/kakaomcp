@@ -1,0 +1,436 @@
+/* ========================================================
+   똑똑한 약 챙김이 - 시니어 친화 스타일시트 (pill.css)
+   ======================================================== */
+
+:root {
+  --bg-color: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-main: #191f28;
+  --text-sub: #4e5968;
+  --primary-kakao: #fee500;
+  --success-color: #2b8a3e;
+  --success-bg: #e6fcf5;
+  --radius-card: 20px;
+  --radius-btn: 16px;
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.4;
+  padding-bottom: 40px;
+}
+
+/* 상단 헤더 */
+.app-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e5e8eb;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  font-size: 38px;
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.header-date {
+  font-size: 14px;
+  color: var(--text-sub);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.btn-settings {
+  background: #f2f4f6;
+  border: 1.5px solid #d1d6db;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #333d4b;
+}
+
+.btn-settings:hover {
+  background: #e5e8eb;
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 복용 요약 현황 카드 */
+.summary-card {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid #e5e8eb;
+}
+
+.summary-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.summary-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.summary-status {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0c8599;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 14px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #20c997, #12b886);
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+}
+
+/* 알약 리스트 */
+.pill-list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 개별 알약 카드 */
+.pill-card {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 2.5px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.25s ease;
+}
+
+/* 복용 완료 상태 스타일 */
+.pill-card.done {
+  border-color: #51cf66;
+  background-color: #f4fbf6;
+}
+
+.pill-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pill-emoji-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background-color: #f1f3f5;
+  flex-shrink: 0;
+}
+
+.pill-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pill-time-tag {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1971c2;
+  margin-bottom: 4px;
+}
+
+.pill-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #212529;
+}
+
+.pill-instructions {
+  font-size: 15px;
+  color: #868e96;
+  margin-top: 2px;
+}
+
+/* 음성 말하기 버튼 */
+.btn-speak {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.btn-speak:active {
+  background: #e9ecef;
+}
+
+/* 왕버튼 (오늘 먹었어요 / 취소) */
+.pill-check-btn {
+  width: 100%;
+  padding: 16px 12px;
+  font-size: 20px;
+  font-weight: 800;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  background-color: #228be6;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(34, 139, 230, 0.3);
+}
+
+.pill-check-btn:active {
+  transform: scale(0.98);
+}
+
+/* 복용 완료 상태의 버튼 */
+.pill-card.done .pill-check-btn {
+  background-color: #2b8a3e;
+  box-shadow: 0 4px 10px rgba(43, 138, 62, 0.3);
+}
+
+.pill-check-btn .btn-check-icon {
+  font-size: 24px;
+}
+
+/* 하단 카카오톡 공유 카드 */
+.action-card {
+  margin-top: 8px;
+}
+
+.btn-kakao-share {
+  width: 100%;
+  background-color: var(--primary-kakao);
+  color: #111111;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 18px 16px;
+  font-size: 19px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.4);
+}
+
+.btn-kakao-share:active {
+  transform: scale(0.98);
+}
+
+.kakao-icon {
+  font-size: 26px;
+}
+
+/* 모달 팝업 */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-box {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-x {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #868e96;
+}
+
+.modal-body {
+  padding: 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pill-editor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pill-edit-row {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pill-edit-top-row {
+  display: flex;
+  gap: 8px;
+}
+
+.pill-edit-top-row input {
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+
+.edit-emoji { width: 48px; text-align: center; }
+.edit-name { flex: 1; font-weight: 700; }
+.edit-time { width: 110px; }
+
+.pill-edit-bottom-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-desc {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+
+.btn-delete-row {
+  background: #ffe3e3;
+  color: #e03131;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-add-pill {
+  width: 100%;
+  padding: 12px;
+  background-color: #f1f3f5;
+  border: 1.5px dashed #adb5bd;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #495057;
+  cursor: pointer;
+}
+
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #f8f9fa;
+}
+
+.btn-modal-sub {
+  background: #e9ecef;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-modal-main {
+  background: #228be6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
