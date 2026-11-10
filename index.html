@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우리 동네 안심 효도 지도 🧭</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 폰트: 읽기 쉬운 눈누 프리텐다드 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- 카카오 지도 공식 SDK (시냇물님의 JavaScript 키) -->
+  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=55148ba167bb060d42de019ce8797b3b&autoload=false"></script>
+</head>
+<body>
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="header-content">
+      <span class="header-icon">🧭</span>
+      <div>
+        <h1 class="header-title">우리 동네 안심 지도</h1>
+        <p class="header-subtitle">가고 싶은 곳을 콕 누르면 길을 안내해 드려요</p>
+      </div>
+    </div>
+    <!-- 설정 버튼 (자녀/관리자가 장소나 카카오 키 설정) -->
+    <button id="openSettingsBtn" class="settings-btn" title="설정 열기">⚙️ 설정</button>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="main-container">
+    
+    <!-- 카카오 키 미등록 알림 배너 (기본 숨김) -->
+    <div id="keyNoticeBanner" class="banner banner-notice" style="display: none;">
+      🔑 <strong>카카오 키 등록이 필요해요!</strong> 오른쪽 위 <strong>[⚙️ 설정]</strong>을 눌러 카카오 자바스크립트 키를 넣어주세요. (입력 전에는 체험 모드로 동작합니다)
+    </div>
+
+    <!-- 자주 가는 장소 빠른 버튼 그리드 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">📍 어디로 가실까요?</h2>
+        <span class="section-desc">버튼을 누르면 지도가 짠! 나타납니다</span>
+      </div>
+      <div id="placesGrid" class="places-grid">
+        <!-- 자바스크립트로 장소 버튼들이 큼직하게 자동 생성됩니다 -->
+      </div>
+    </section>
+
+    <!-- 지도 표시 구역 -->
+    <section class="section-card map-section">
+      <div class="selected-place-bar">
+        <span id="selectedIcon" class="selected-icon">🏥</span>
+        <div class="selected-info">
+          <strong id="selectedName" class="selected-name">우리 동네 병원</strong>
+          <span id="selectedAddress" class="selected-address">서울시 강남구 테헤란로 123</span>
+        </div>
+        <button id="myLocationBtn" class="my-location-btn" title="내 위치 찾기">📍 내 위치</button>
+      </div>
+
+      <!-- 지도 캔버스 -->
+      <div id="mapContainer" class="map-container">
+        <div id="map"></div>
+        <div id="mapFallback" class="map-fallback">
+          <p>🗺️ 지도를 불러오는 중이거나 카카오 키를 기다리고 있어요!</p>
+          <p class="small-text">오른쪽 위 [⚙️ 설정]에서 키를 넣어주시면 생생한 지도가 펼쳐져요.</p>
+        </div>
+      </div>
+
+      <!-- 액션 버튼들 (길 안내, 전화 걸기) -->
+      <div class="action-buttons">
+        <a id="navRouteBtn" href="#" target="_blank" class="btn btn-primary">
+          <span class="btn-icon">🚶</span>
+          <span>카카오맵으로 길 찾기</span>
+        </a>
+        <a id="callPhoneBtn" href="tel:" class="btn btn-secondary">
+          <span class="btn-icon">📞</span>
+          <span>전화 걸기</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 하단 안심 팁 -->
+    <footer class="app-footer">
+      💡 <strong>도움말:</strong> 화면을 스마트폰 홈 화면에 추가하시면 진짜 앱처럼 매일 편하게 쓰실 수 있어요!
+    </footer>
+
+  </main>
+
+  <!-- 설정 모달 (카카오 키 & 장소 편집) -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚙️ 지도 설정하기</h3>
+        <button id="closeSettingsBtn" class="close-btn">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- 1. 카카오 키 입력 -->
+        <div class="form-group">
+          <label for="kakaoAppKey">🔑 카카오 JavaScript 키</label>
+          <input type="text" id="kakaoAppKey" placeholder="카카오 디벨로퍼스에서 복사한 키를 붙여넣으세요">
+          <small class="helper-text">입력 후 저장하면 카카오 실시간 지도가 활성화됩니다.</small>
+        </div>
+
+        <hr class="divider">
+
+        <!-- 2. 장소 관리 목록 -->
+        <div class="form-group">
+          <label>📌 자주 가는 장소 목록</label>
+          <div id="placeListEditor" class="place-list-editor">
+            <!-- 등록된 장소 목록 표시 -->
+          </div>
+          <button id="addNewPlaceBtn" class="btn btn-small btn-add">+ 새 장소 추가하기</button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="resetDefaultsBtn" class="btn btn-light">기본값 복원</button>
+        <button id="saveSettingsBtn" class="btn btn-confirm">설정 저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
