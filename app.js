@@ -62,11 +62,16 @@ const DEFAULT_PLACES = [
   }
 ];
 
-// 상태 저장 객체 (시냇물님의 카카오 JavaScript 키가 기본으로 쏙 탑재되었어요!)
-const KAKAO_DEFAULT_KEY = '55148ba167bb060d42de019ce8797b3b';
+// 상태 저장 객체 (시냇물님의 최신 카카오 JavaScript 키가 기본으로 쏙 탑재되었어요!)
+const KAKAO_DEFAULT_KEY = 'db2efb31592d0c8d56f03ce29093238b';
+
+// 로컬스토리지에 예전 키가 남아있으면 새 키로 갱신
+if (localStorage.getItem('kakao_app_key') && localStorage.getItem('kakao_app_key') !== KAKAO_DEFAULT_KEY) {
+  localStorage.setItem('kakao_app_key', KAKAO_DEFAULT_KEY);
+}
 
 let appState = {
-  kakaoKey: localStorage.getItem('kakao_app_key') || KAKAO_DEFAULT_KEY,
+  kakaoKey: KAKAO_DEFAULT_KEY,
   places: JSON.parse(localStorage.getItem('my_favorite_places')) || DEFAULT_PLACES,
   selectedPlace: null,
   map: null,
